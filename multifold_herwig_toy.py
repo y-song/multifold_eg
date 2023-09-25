@@ -149,8 +149,9 @@ fitargs2 = {'batch_size': 10000, 'epochs': 100,
 
 # reweight the sim and data to have the same total weight to begin with
 ndata, nsim = np.count_nonzero(Y_det[:, 1]), np.count_nonzero(Y_det[:, 0])
+norm = sum(df2['w'])/sum(df1['relw'])
 wdata = df2['w']
-winit = ndata/nsim*np.asarray(df1['relw'])
+winit = norm*np.asarray(df1['relw'])
 
 # apply the OmniFold procedure to get weights for the generation
 multifold_ws = omnifold.omnifold(X_gen, Y_gen, X_det, Y_det, wdata, winit,
